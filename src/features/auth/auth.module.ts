@@ -8,7 +8,7 @@ import { ConfigModule } from '../../core/config/config.module';
 import { ConfigService } from '../../core/config/config.service';
 import { UserModule } from '../user/user.module';
 import { ProfileModule } from '../profile/profile.module';
-import { CompanyModule } from '../question/company.module';
+import { GameModule } from '../game/game.module';
 import { User } from '../user/entity/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserService } from '../user/user.service';
@@ -18,7 +18,7 @@ import { UserService } from '../user/user.service';
     UserModule,
     ProfileModule,
     ConfigModule,
-    CompanyModule,
+    GameModule,
     TypeOrmModule.forFeature([User]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({

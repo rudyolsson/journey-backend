@@ -12,7 +12,7 @@ export class UserController {
     return await this.userService.findById(
       '38e03541-9d1b-454f-bf15-756146c93e9b',
       ['id', 'email'],
-      ['companies', 'companies.company', 'profile'],
+      ['games', 'games.game', 'profile']
     );
   }
 }

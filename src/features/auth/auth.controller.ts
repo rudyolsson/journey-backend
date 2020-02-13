@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  HttpException,
-  HttpStatus,
-  Post,
-  Delete,
-  Req,
-  Request,
-} from '@nestjs/common';
+import { Body, Controller, Post, Delete, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserService } from '../user/user.service';
 import { Propagation, Transactional } from 'typeorm-transactional-cls-hooked';
@@ -21,7 +12,7 @@ import { first } from 'lodash';
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly userService: UserService,
+    private readonly userService: UserService
   ) {}
 
   @Transactional({ propagation: Propagation.REQUIRES_NEW })
@@ -29,18 +20,16 @@ export class AuthController {
   async createToken(@Body() loginRequest: SignInDto): Promise<any> {
     try {
       const user = await this.userService.findByEmail(loginRequest.email, [
-        'companies',
-        'companies.company',
         'profile',
+        'games',
+        'games.questions'
       ]);
       if (await this.userService.isUserInvalid(user, loginRequest.password)) {
         throw new UserUnauthorizedException();
       }
-      const company = first(user.companies).company.id;
       const jwtPayload = {
-        company,
         email: user.email,
-        roles: user.roles,
+        roles: user.roles
       };
       const accessToken = await this.authService.createTokenForUser(jwtPayload);
       return { jwtPayload, accessToken };

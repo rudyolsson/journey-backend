@@ -33,6 +33,6 @@ export async function createUserProfileMock(
     .setPhone(phone)
     .build()
     .save();
-  console.log(`  Profile for user ${user.id} created`);
+  console.log(`Profile for user ${user.id} created`);
   return profile;
 }

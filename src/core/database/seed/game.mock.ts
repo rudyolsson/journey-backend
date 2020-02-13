@@ -3,11 +3,9 @@ import { GameBuilder } from '../../../features/game/builder/company.builder';
 
 export async function createGameMock(
   name: string,
-  id: string,
   userId: string
 ): Promise<Game> {
   const game: Game = await new GameBuilder()
-    .setId(id)
     .setUserId(userId)
     .setName(name)
     .build()
